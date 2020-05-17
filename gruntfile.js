@@ -3,6 +3,7 @@ const sass = require('node-sass');
 module.exports = grunt => {
 
 	require('load-grunt-tasks')(grunt);
+	grunt.loadNpmTasks('grunt-contrib-jade');
 
 	let port = grunt.option('port') || 8000;
 	let root = grunt.option('root') || '.';
@@ -149,6 +150,9 @@ module.exports = grunt => {
 				files: [ 'test/*.html' ],
 				tasks: 'test'
 			},
+			jade: {
+				files: root.map(path => path + '/*.jade')
+			},
 			html: {
 				files: root.map(path => path + '/*.html')
 			},
@@ -158,12 +162,24 @@ module.exports = grunt => {
 			options: {
 				livereload: true
 			}
-		}
+		},
+		jade: {
+            compile: {
+                options: {
+                    data: {
+                        debug: true
+                    }
+                },
+                files: {
+                    "index.html": ["jade/index.jade"]
+                }
+            }
+        }
 
 	});
 
 	// Default task
-	grunt.registerTask( 'default', [ 'css', 'js' ] );
+	grunt.registerTask( 'default', [ 'jade', 'css', 'js' ] );
 
 	// JS task
 	grunt.registerTask( 'js', [ 'jshint', 'uglify', 'qunit' ] );
@@ -181,7 +197,7 @@ module.exports = grunt => {
 	grunt.registerTask( 'package', [ 'default', 'zip' ] );
 
 	// Serve presentation locally
-	grunt.registerTask( 'serve', [ 'connect', 'watch' ] );
+	grunt.registerTask( 'serve', [ 'jade', 'connect', 'watch' ] );
 
 	// Run tests
 	grunt.registerTask( 'test', [ 'jshint', 'qunit' ] );

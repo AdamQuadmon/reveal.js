@@ -1,0 +1,53 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    title reveal.js
+    link(rel='stylesheet', href='css/reset.css')
+    link(rel='stylesheet', href='css/reveal.css')
+    link(rel='stylesheet', href='css/theme/black.css')
+    // Theme used for syntax highlighting of code
+    link(rel='stylesheet', href='lib/css/monokai.css')
+    // Printing and PDF exports
+    script.
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+  body
+    .reveal
+      .slides
+        //- default/cube/page/concave/zoom/linear/fade/none
+        //- shrink roll-in fade-out, current-visible, higlight-current-blue, highlight-red, highlight-green, highlight-blue
+        section
+            h1 Titolo Presentazione
+            h3 Nome Evento 2020 - Luogo 17 May
+            p
+
+                small by
+                    a(href='https://github.com/adamquadmon') Luciano Amodio
+                    | /
+                    a(href='http://twitter.com/lucianoamodio') http://twitter.com/lucianoamodio
+        include me.jade
+        include you.jade
+        section(data-background="#FFF")
+            h1(style="color: #222;") Let's start
+        include part1.jade
+        include part2.jade
+        include conclusion.jade
+    script(src='js/reveal.js')
+    script.
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+      hash: true,
+      dependencies: [
+      { src: 'plugin/markdown/marked.js' },
+      { src: 'plugin/markdown/markdown.js' },
+      { src: 'plugin/highlight/highlight.js' },
+      { src: 'plugin/notes/notes.js', async: true }
+      ]
+      });
